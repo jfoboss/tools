@@ -11,6 +11,7 @@ CUR_DIR=$(pwd)
 echo -e "\n\033[1mPulling in latest changes for all repositories...\033[0m\n"
 
 # Find all git repositories and update it to the master latest revision
+# Processes N flows simultaneously (based on CPU cores)
 find . -name ".git" | cut -c 3- | parallel -j +0 'a={}; echo ""; echo -e "\033[33m --==[ "$a" ]==-- \033[0m"; cd $a && cd .. ; git add -A; git commit -m "Automatic commit from <hostname> workstation"; git pull origin master; git push'
 
 # for i in $(find . -name ".git" | cut -c 3-); do
